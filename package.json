@@ -1,0 +1,36 @@
+{
+  "name": "@mpoc/root",
+  "private": true,
+  "version": "0.0.0",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev:next": "bun --filter next-app dev",
+    "dev:vite": "bun --filter vite-app dev",
+    "dev": "concurrently -n next,vite -c green,cyan \"bun dev:next\" \"bun dev:vite\"",
+    "build:next": "bun --filter next-app build",
+    "build:vite": "bun --filter vite-app build",
+    "build": "concurrently -n next,vite -c green,cyan \"bun build:next\" \"bun build:vite\"",
+    "start:next": "bun --filter next-app start",
+    "start:vite": "bun --filter vite-app preview",
+    "start": "concurrently -n next,vite -c green,cyan \"bun start:next\" \"bun start:vite\"",
+    "test:ct:next": "bun --filter next-app cypress:ct",
+    "test:ct:vite": "bun --filter vite-app cypress:ct",
+    "test:ct": "concurrently -n next,vite -c green,cyan \"bun test:ct:next\" \"bun test:ct:vite\"",
+    "test:e2e:next": "bun --filter next-app cypress:e2e",
+    "test:e2e:vite": "bun --filter vite-app cypress:e2e",
+    "test:e2e": "concurrently -n next,vite -c green,cyan \"bun test:e2e:next\" \"bun test:e2e:vite\"",
+    "test:ct:next:ci": "bun --filter next-app cypress:ct:ci",
+    "test:ct:vite:ci": "bun --filter vite-app cypress:ct:ci",
+    "test:e2e:next:ci": "bun --filter next-app cypress:e2e:ci",
+    "test:e2e:vite:ci": "bun --filter vite-app cypress:e2e:ci",
+    "test:next:ci": "concurrently -n ct,e2e -c yellow,magenta \"bun test:ct:next:ci\" \"bun test:e2e:next:ci\"",
+    "test:vite:ci": "concurrently -n ct,e2e -c yellow,magenta \"bun test:ct:vite:ci\" \"bun test:e2e:vite:ci\"",
+    "test:ci": "concurrently -n next,vite -c green,cyan \"bun test:next:ci\" \"bun test:vite:ci\""
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.0"
+  }
+}

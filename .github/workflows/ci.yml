@@ -1,0 +1,78 @@
+name: MPOC-BUN CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  cypress-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
+
+      - name: Cache Bun dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.bun/install/cache
+          key: ${{ runner.os }}-bun-${{ hashFiles('**/bun.lockb') }}
+          restore-keys: ${{ runner.os }}-bun-
+
+      - name: Install dependencies
+        run: bun install
+
+      # ---- Next App ----
+      - name: Build Next App
+        run: bun --filter next-app build
+
+      - name: Cypress E2E - Next App
+        uses: cypress-io/github-action@v6
+        with:
+          working-directory: apps/next-app
+          start: bun --filter next-app start
+          wait-on: http://localhost:3000
+          wait-on-timeout: 60
+          install: false
+
+      # ---- Vite App ----
+      - name: Build Vite App
+        run: bun --filter vite-app build
+
+      - name: Cypress E2E - Vite App
+        uses: cypress-io/github-action@v6
+        with:
+          working-directory: apps/vite-app
+          start: bun --filter vite-app preview
+          wait-on: http://localhost:4173
+          wait-on-timeout: 60
+          install: false
+
+      - name: Upload Cypress Videos
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cypress-videos
+          path: |
+            apps/next-app/cypress/videos/
+            apps/vite-app/cypress/videos/
+          if-no-files-found: ignore
+
+      - name: Upload Cypress Screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cypress-screenshots
+          path: |
+            apps/next-app/cypress/screenshots/
+            apps/vite-app/cypress/screenshots/
+          if-no-files-found: ignore
+

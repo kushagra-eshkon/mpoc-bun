@@ -1,0 +1,16 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "noEmit": false,
+    "declaration": true,
+    "declarationMap": true,
+    "outDir": "dist",
+    "composite": true,
+    "module": "ESNext",
+    "jsx": "react-jsx",
+    "baseUrl": "./src"
+  },
+  "include": ["src", "global.d.ts"],
+  "exclude": ["dist", "node_modules", "tests"]
+}
+

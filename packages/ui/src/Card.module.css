@@ -1,0 +1,53 @@
+.card {
+  max-width: 640px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  background-color: #ffffff;
+  color: #111111;
+  border-radius: 12px;
+  box-shadow: 0 0 0 1px #ddd, 0 4px 12px rgba(0, 0, 0, 0.06);
+  border: 1px solid #e1e1e1;
+}
+
+.image {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.title {
+  font-size: 1.5rem;
+  margin-bottom: 0.75rem;
+  font-weight: 700;
+  color: #111;
+}
+
+.description {
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 1.25rem;
+  color: #333;
+}
+
+.cta {
+  display: inline-block;
+  padding: 0.6rem 1.2rem;
+  background-color: #0033aa;
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  border-radius: 6px;
+  transition: background-color 0.2s ease;
+}
+
+.cta:focus,
+.cta:hover {
+  background-color: #002288;
+  outline: 2px solid #0033aa;
+  outline-offset: 2px;
+}
+
+
+
