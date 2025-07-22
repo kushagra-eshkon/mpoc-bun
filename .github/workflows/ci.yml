@@ -43,6 +43,13 @@ jobs:
           wait-on-timeout: 60
           install: false
 
+      - name: Cypress Component - Next App
+        uses: cypress-io/github-action@v6
+        with:
+          working-directory: apps/next-app
+          command: bun run test:ct:next:ci
+          install: false
+
       # ---- Vite App ----
       - name: Build Vite App
         run: bun --filter vite-app build
@@ -54,6 +61,13 @@ jobs:
           start: bun --filter vite-app preview
           wait-on: http://localhost:4173
           wait-on-timeout: 60
+          install: false
+
+      - name: Cypress Component - Vite App
+        uses: cypress-io/github-action@v6
+        with:
+          working-directory: apps/vite-app
+          command: bun run test:ct:vite:ci
           install: false
 
       - name: Upload Cypress Videos

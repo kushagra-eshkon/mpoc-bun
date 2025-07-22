@@ -31,6 +31,11 @@
     "test:ci": "concurrently -n next,vite -c green,cyan \"bun test:next:ci\" \"bun test:vite:ci\""
   },
   "devDependencies": {
-    "concurrently": "^9.2.0"
-  }
+    "@babel/core": "^7.28.0",
+    "@testing-library/cypress": "^10.0.3",
+    "babel-loader": "^10.0.0",
+    "concurrently": "^9.2.0",
+    "typescript": "^5.8.3"
+  },
+  "dependencies": {}
 }

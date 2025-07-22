@@ -1,9 +1,16 @@
 import { defineConfig } from "cypress"
+import path from "path"
 
 export default defineConfig({
   component: {
-    specPattern: "cypress/**/*.cy.{ts,tsx}",
-    supportFile: "cypress/support/component.ts",
+    specPattern: path.resolve(
+      __dirname,
+      "../../packages/ui/cypress/component/**/*.cy.{ts,tsx}"
+    ),
+    supportFile: path.resolve(
+      __dirname,
+      "../../packages/ui/cypress/support/component.ts"
+    ),
     devServer: {
       framework: "react",
       bundler: "vite",
