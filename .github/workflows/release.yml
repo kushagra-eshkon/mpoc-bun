@@ -1,0 +1,76 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+    types: [closed]
+
+jobs:
+  create_release:
+    if: |
+      github.event_name == 'push' ||
+      (github.event_name == 'pull_request' && github.event.pull_request.merged)
+    runs-on: ubuntu-latest
+    concurrency:
+      group: release-${{ github.ref }}
+
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
+
+      - name: Install deps
+        run: bun install
+
+      - name: Bump version
+        id: bump
+        run: |
+          # Replace with your actual version-bump script (see below)
+          # e.g., bun run version:patch
+          NEXT_VERSION=$(bun run version:patch)
+          echo "New version: $NEXT_VERSION"
+          echo "VERSION=$NEXT_VERSION" >> $GITHUB_ENV
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          git add package.json
+          git commit -m "chore: bump version to $NEXT_VERSION [skip ci]"
+          git push
+
+      - name: Get commit log for changelog
+        id: changelog
+        run: |
+          COMMIT_LOG=$(git log --pretty=format:"- %s%n    %h by %an" $(git describe --abbrev=0 --tags 2>/dev/null || echo "")..HEAD | awk '!/chore: bump version|Automated release/')
+          # Escape for GHA
+          COMMIT_LOG="${COMMIT_LOG//'%'/'%25'}"
+          COMMIT_LOG="${COMMIT_LOG//$'\n'/'%0A'}"
+          COMMIT_LOG="${COMMIT_LOG//$'\r'/'%0D'}"
+          echo "commit_log=$COMMIT_LOG" >> $GITHUB_OUTPUT
+
+      - name: Create git tag
+        run: |
+          git tag v${{ env.VERSION }}
+          git push origin v${{ env.VERSION }}
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: v${{ env.VERSION }}
+          name: Release v${{ env.VERSION }}
+          body: |-
+            **Changelog**
+
+            ${{ steps.changelog.outputs.commit_log }}
+          draft: false
+          prerelease: false
+
