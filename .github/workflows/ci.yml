@@ -47,7 +47,7 @@ jobs:
         uses: cypress-io/github-action@v6
         with:
           working-directory: apps/next-app
-          command: bun run test:ct:next:ci
+          command: bun run cypress:ct:ci
           install: false
 
       # ---- Vite App ----
@@ -67,7 +67,7 @@ jobs:
         uses: cypress-io/github-action@v6
         with:
           working-directory: apps/vite-app
-          command: bun run test:ct:vite:ci
+          command: bun run cypress:ct:ci
           install: false
 
       - name: Upload Cypress Videos
