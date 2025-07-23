@@ -1,3 +1,12 @@
+## 0.1.0 (2025-07-23)
+
+* feat: minor version bump ([6195648](https://github.com/kushagra-eshkon/mpoc-bun/commit/6195648))
+* feat: someting ([1f4ce7f](https://github.com/kushagra-eshkon/mpoc-bun/commit/1f4ce7f))
+* feat: use changesets ([3593197](https://github.com/kushagra-eshkon/mpoc-bun/commit/3593197))
+* feat: use sementic-release ([f24651a](https://github.com/kushagra-eshkon/mpoc-bun/commit/f24651a))
+* fix: release github action ([be43249](https://github.com/kushagra-eshkon/mpoc-bun/commit/be43249))
+* fix: soemthing ([722b9cd](https://github.com/kushagra-eshkon/mpoc-bun/commit/722b9cd))
+
 # Changelog
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
