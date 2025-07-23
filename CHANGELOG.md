@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.9](https://github.com/kushagra-eshkon/mpoc-bun/compare/v0.0.8...v0.0.9) (2025-07-23)
+
+
+### Features
+
+* minor version bump ([6195648](https://github.com/kushagra-eshkon/mpoc-bun/commit/6195648f5ad94c187889a24207961ec7a2816ac4))
+
 ### [0.0.8](https://github.com/kushagra-eshkon/mpoc-bun/compare/v0.0.7...v0.0.8) (2025-07-23)
 
 
