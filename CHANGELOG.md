@@ -1,3 +1,9 @@
+## [0.2.2](https://github.com/kushagra-eshkon/mpoc-bun/compare/v0.2.1...v0.2.2) (2025-07-23)
+
+### Performance Improvements
+
+* improve releases ([ab6fe27](https://github.com/kushagra-eshkon/mpoc-bun/commit/ab6fe277765222969139512240000efa75ad7174))
+
 ## [0.2.1](https://github.com/kushagra-eshkon/mpoc-bun/compare/v0.2.0...v0.2.1) (2025-07-23)
 
 
