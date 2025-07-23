@@ -28,14 +28,19 @@
     "test:e2e:vite:ci": "bun --filter vite-app cypress:e2e:ci",
     "test:next:ci": "concurrently -n ct,e2e -c yellow,magenta \"bun test:ct:next:ci\" \"bun test:e2e:next:ci\"",
     "test:vite:ci": "concurrently -n ct,e2e -c yellow,magenta \"bun test:ct:vite:ci\" \"bun test:e2e:vite:ci\"",
-    "test:ci": "concurrently -n next,vite -c green,cyan \"bun test:next:ci\" \"bun test:vite:ci\""
+    "test:ci": "concurrently -n next,vite -c green,cyan \"bun test:next:ci\" \"bun test:vite:ci\"",
+    "test:unit": "vitest run --config vitest.config.ts",
+    "test:unit:watch": "vitest watch --config vitest.config.ts",
+    "test:unit:store": "cd packages/store && bun run test",
+    "test:unit:ui": "cd packages/ui && bun run test"
   },
   "devDependencies": {
     "@babel/core": "^7.28.0",
     "@testing-library/cypress": "^10.0.3",
     "babel-loader": "^10.0.0",
     "concurrently": "^9.2.0",
-    "typescript": "^5.8.3"
+    "typescript": "^5.8.3",
+    "vitest": "^3.2.4"
   },
   "dependencies": {}
 }

@@ -1,4 +1,4 @@
-name: MPOC-BUN CI
+name: MPOC CI
 
 on:
   push:
@@ -7,21 +7,20 @@ on:
     branches: [main]
 
 jobs:
-  cypress-tests:
+  # ---- Unit Tests (Redux, utils, pure logic) ----
+  unit:
+    name: Unit (Vitest)
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 10
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Setup Bun
-        uses: oven-sh/setup-bun@v1
+      - uses: oven-sh/setup-bun@v1
         with:
           bun-version: latest
 
-      - name: Cache Bun dependencies
-        uses: actions/cache@v4
+      - uses: actions/cache@v4
         with:
           path: ~/.bun/install/cache
           key: ${{ runner.os }}-bun-${{ hashFiles('**/bun.lockb') }}
@@ -30,12 +29,53 @@ jobs:
       - name: Install dependencies
         run: bun install
 
-      # ---- Next App ----
+      - name: Run unit tests
+        run: bun run test:unit
+
+      - name: Upload coverage (optional)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-json
+          path: '**/coverage/coverage-summary.json'
+          if-no-files-found: ignore
+
+  # ---- Cypress: Next App (E2E & Component) ----
+  next-app-cypress:
+    name: Next App (Cypress)
+    needs: unit
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    env:
+      CYPRESS_CACHE_FOLDER: ${{ github.workspace }}/cypress_cache
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
+
+      - uses: actions/cache@v4
+        with:
+          path: ~/.bun/install/cache
+          key: ${{ runner.os }}-bun-${{ hashFiles('**/bun.lockb') }}
+          restore-keys: ${{ runner.os }}-bun-
+
+      - uses: actions/cache@v4
+        with:
+          path: ${{ github.workspace }}/cypress_cache
+          key: ${{ runner.os }}-cypress-${{ hashFiles('**/package-lock.json', '**/yarn.lock', '**/bun.lockb') }}
+          restore-keys: ${{ runner.os }}-cypress-
+
+      - name: Install dependencies
+        run: bun install
+
       - name: Build Next App
         run: bun --filter next-app build
 
-      - name: Cypress E2E - Next App
-        uses: cypress-io/github-action@v6
+      - uses: cypress-io/github-action@v6
         with:
           working-directory: apps/next-app
           start: bun --filter next-app start
@@ -43,19 +83,64 @@ jobs:
           wait-on-timeout: 60
           install: false
 
-      - name: Cypress Component - Next App
-        uses: cypress-io/github-action@v6
+      - uses: cypress-io/github-action@v6
         with:
           working-directory: apps/next-app
           command: bun run cypress:ct:ci
           install: false
 
-      # ---- Vite App ----
+      - name: Upload Cypress videos
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cypress-videos-next
+          path: apps/next-app/cypress/videos
+          if-no-files-found: ignore
+
+      - name: Upload Cypress screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cypress-screenshots-next
+          path: apps/next-app/cypress/screenshots
+          if-no-files-found: ignore
+
+  # ---- Cypress: Vite App (E2E & Component) ----
+  vite-app-cypress:
+    name: Vite App (Cypress)
+    needs: unit
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    env:
+      CYPRESS_CACHE_FOLDER: ${{ github.workspace }}/cypress_cache
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
+
+      - uses: actions/cache@v4
+        with:
+          path: ~/.bun/install/cache
+          key: ${{ runner.os }}-bun-${{ hashFiles('**/bun.lockb') }}
+          restore-keys: ${{ runner.os }}-bun-
+
+      - uses: actions/cache@v4
+        with:
+          path: ${{ github.workspace }}/cypress_cache
+          key: ${{ runner.os }}-cypress-${{ hashFiles('**/package-lock.json', '**/yarn.lock', '**/bun.lockb') }}
+          restore-keys: ${{ runner.os }}-cypress-
+
+      - name: Install dependencies
+        run: bun install
+
       - name: Build Vite App
         run: bun --filter vite-app build
 
-      - name: Cypress E2E - Vite App
-        uses: cypress-io/github-action@v6
+      - uses: cypress-io/github-action@v6
         with:
           working-directory: apps/vite-app
           start: bun --filter vite-app preview
@@ -63,30 +148,25 @@ jobs:
           wait-on-timeout: 60
           install: false
 
-      - name: Cypress Component - Vite App
-        uses: cypress-io/github-action@v6
+      - uses: cypress-io/github-action@v6
         with:
           working-directory: apps/vite-app
           command: bun run cypress:ct:ci
           install: false
 
-      - name: Upload Cypress Videos
+      - name: Upload Cypress videos
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: cypress-videos
-          path: |
-            apps/next-app/cypress/videos/
-            apps/vite-app/cypress/videos/
+          name: cypress-videos-vite
+          path: apps/vite-app/cypress/videos
           if-no-files-found: ignore
 
-      - name: Upload Cypress Screenshots
+      - name: Upload Cypress screenshots
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: cypress-screenshots
-          path: |
-            apps/next-app/cypress/screenshots/
-            apps/vite-app/cypress/screenshots/
+          name: cypress-screenshots-vite
+          path: apps/vite-app/cypress/screenshots
           if-no-files-found: ignore
 
