@@ -1,3 +1,10 @@
+# [0.2.0](https://github.com/kushagra-eshkon/mpoc-bun/compare/v0.1.0...v0.2.0) (2025-07-23)
+
+
+### Features
+
+* add release github action ([312da2d](https://github.com/kushagra-eshkon/mpoc-bun/commit/312da2d5bd2382aedfc6c160cdb48c28d54526aa))
+
 ## 0.1.0 (2025-07-23)
 
 * feat: minor version bump ([6195648](https://github.com/kushagra-eshkon/mpoc-bun/commit/6195648))
