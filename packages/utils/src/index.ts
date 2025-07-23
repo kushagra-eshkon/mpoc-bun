@@ -11,7 +11,7 @@ export type LogType = "error" | "success" | "warning"
  *
  * Format:
  * - `[-]` for errors
- * - `[+]` for successful logs
+ * - `[+]` for successful success
  * - `[*]` for notes or warnings
  *
  * @param message - The message string to log.
