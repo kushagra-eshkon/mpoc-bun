@@ -33,18 +33,19 @@
     "test:unit:watch": "vitest watch --config vitest.config.ts",
     "test:unit:store": "cd packages/store && bun run test",
     "test:unit:ui": "cd packages/ui && bun run test",
-    "release": "standard-version",
+    "version": "changeset version",
+    "release": "changeset version",
     "prepare": "husky"
   },
   "devDependencies": {
     "@babel/core": "^7.28.0",
+    "@changesets/cli": "^2.29.5",
     "@commitlint/cli": "^19.8.1",
     "@commitlint/config-conventional": "^19.8.1",
     "@testing-library/cypress": "^10.0.3",
     "babel-loader": "^10.0.0",
     "concurrently": "^9.2.0",
     "husky": "^9.1.7",
-    "standard-version": "^9.5.0",
     "typescript": "^5.8.3",
     "vitest": "^3.2.4"
   },

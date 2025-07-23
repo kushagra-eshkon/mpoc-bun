@@ -6,21 +6,25 @@ on:
 
 permissions:
   contents: write
+  pull-requests: write
 
 jobs:
   release:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout full history
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - uses: oven-sh/setup-bun@v1
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v1
         with:
           bun-version: latest
 
-      - uses: actions/cache@v4
+      - name: Cache Bun’s install
+        uses: actions/cache@v4
         with:
           path: ~/.bun/install/cache
           key: ${{ runner.os }}-bun-${{ hashFiles('**/bun.lockb') }}
@@ -33,24 +37,13 @@ jobs:
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
 
-      - name: Bump version + changelog + tag
-        uses: qzb/standard-version-action@v1.0.7
-
-      - name: Push version bump and tag
-        run: |
-          git push origin main --follow-tags
-
-      - name: Get latest tag
-        run: echo "TAG_NAME=$(git describe --tags --abbrev=0)" >> $GITHUB_ENV
-
-      - name: Create GitHub Release
-        uses: actions/create-release@v1
+      - name: Version bump & GitHub release
+        uses: changesets/action@v1
         with:
-          tag_name: ${{ env.TAG_NAME }}
-          release_name: Release ${{ env.TAG_NAME }}
-          body_path: CHANGELOG.md
-          draft: false
-          prerelease: false
+          publish: echo "Skipping npm publish"
+          setupGitUser: true
+          commitMode: git-cli
+          createGithubReleases: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
