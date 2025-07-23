@@ -4,6 +4,16 @@
 
 * add libs ([97578ee](https://github.com/kushagra-eshkon/mpoc-bun/commit/97578ee8934ed373ca4d442b0e6074c95f7e68bd))
 
+### Bug Fixes
+
+* something ([974d43b](https://github.com/kushagra-eshkon/mpoc-bun/commit/974d43b77b7bff70a368e5f69b7c2f6749bfdb90))
+
+## [0.4.0](https://github.com/kushagra-eshkon/mpoc-bun/compare/v0.3.0...v0.4.0) (2025-07-23)
+
+### Features
+
+* add libs ([97578ee](https://github.com/kushagra-eshkon/mpoc-bun/commit/97578ee8934ed373ca4d442b0e6074c95f7e68bd))
+
 ## [0.3.0](https://github.com/kushagra-eshkon/mpoc-bun/compare/v0.2.2...v0.3.0) (2025-07-23)
 
 ### Features
