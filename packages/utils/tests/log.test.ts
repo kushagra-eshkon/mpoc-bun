@@ -1,8 +1,6 @@
 import { describe, it, expect, vi, afterEach, afterAll } from "vitest"
 import { log, LogType } from "../"
 
-// todo: remove after version bum
-
 describe("log()", () => {
   const consoleSpy = vi.spyOn(console, "log").mockImplementation(() => {})
 
