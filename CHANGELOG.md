@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.8](https://github.com/kushagra-eshkon/mpoc-bun/compare/v0.0.7...v0.0.8) (2025-07-23)
+
+
+### Chores
+
+* set what triggers the version bump ([39dcf55](https://github.com/kushagra-eshkon/mpoc-bun/commit/39dcf55f500e724c329d823682fa3a56528cad7c))
+
 ### [0.0.7](https://github.com/kushagra-eshkon/mpoc-bun/compare/v0.0.6...v0.0.7) (2025-07-23)
 
 
