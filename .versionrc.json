@@ -9,5 +9,7 @@
     { "type": "build", "section": "Build System" },
     { "type": "ci", "section": "CI" },
     { "type": "test", "section": "Tests" }
-  ]
+  ],
+  "bumpMinorTypes": ["feat", "refactor", "build"],
+  "bumpPatchTypes": ["fix", "perf", "docs", "ci", "test", "chore"]
 }
