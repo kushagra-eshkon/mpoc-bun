@@ -2,9 +2,7 @@ name: MPOC CI
 
 on:
   push:
-    branches: [main]
   pull_request:
-    branches: [main]
 
 jobs:
   # ---- Unit Tests (Redux, utils, pure logic) ----
