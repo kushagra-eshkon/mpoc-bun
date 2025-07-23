@@ -40,7 +40,8 @@ jobs:
       - name: Version bump & GitHub release
         uses: changesets/action@v1
         with:
-          publish: echo "Skipping npm publish"
+          version: bunx changeset version
+          publish: false
           setupGitUser: true
           commitMode: git-cli
           createGithubReleases: true
