@@ -1,3 +1,10 @@
+## [0.2.1](https://github.com/kushagra-eshkon/mpoc-bun/compare/v0.2.0...v0.2.1) (2025-07-23)
+
+
+### Bug Fixes
+
+* bump ([d0269ec](https://github.com/kushagra-eshkon/mpoc-bun/commit/d0269ece1671b0e0fe3e4cc6253467553becfb51))
+
 # [0.2.0](https://github.com/kushagra-eshkon/mpoc-bun/compare/v0.1.0...v0.2.0) (2025-07-23)
 
 
