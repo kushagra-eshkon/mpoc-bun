@@ -1,3 +1,9 @@
+## [0.3.0](https://github.com/kushagra-eshkon/mpoc-bun/compare/v0.2.2...v0.3.0) (2025-07-23)
+
+### Features
+
+* should bump minor version ([4defa9f](https://github.com/kushagra-eshkon/mpoc-bun/commit/4defa9f3660611e6d067006e909da6913bc2faa2))
+
 ## [0.2.2](https://github.com/kushagra-eshkon/mpoc-bun/compare/v0.2.1...v0.2.2) (2025-07-23)
 
 ### Performance Improvements
